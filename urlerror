@@ -1,0 +1,56 @@
+# UrlError的使用
+
+from urllib import request, error
+
+'''
+UrlError的使用
+'''
+if __name__ == '__main__':
+    url = "http://www.baidu11.com"
+    try:
+        rep = request.Request(url)
+        rsp = request.urlopen(rep)
+        html = rsp.read().decode()
+        print(html)
+
+    except error.URLError as e:
+        print("URlError: {0}".format(e))
+        print("UrlError:{0}".format(e.reason))
+
+    except Exception as e:
+        print(e)
+        
+        
+        
+# HTTPError的使用
+
+from urllib import request, error
+
+'''
+HTTPError的使用
+'''
+if __name__ == '__main__':
+    url = "http://www.sipo.gov.cn/www"
+    try:
+        rep = request.Request(url)
+        rsp = request.urlopen(rep)
+        html = rsp.read().decode()
+        print(html)
+
+    except error.HTTPError as e:
+        print("HTTPError: {0}".format(e))
+
+    except error.URLError as e:
+        print("URlError: {0}".format(e))
+        print("UrlError:{0}".format(e.reason))
+
+    except Exception as e:
+        print(e)
+        
+        
+        # 区分：
+            HTTPError 是对应的HTTP请求访问得到的返回码错误， http code 在400以上，就会返回HTTPError
+            URLError 是一般网络出现问题包括url问题
+            
+          关系：
+              OSError -- URLError -- HTTPError
