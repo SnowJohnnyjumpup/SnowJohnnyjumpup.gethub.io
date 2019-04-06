@@ -178,3 +178,48 @@ def getCookie():
     opener = request.build_opener(handler)
     res = opener.open('http://www.baidu.com')
     print(res.read().decode())
+
+
+例6
+
+from urllib import request, parse
+from http import cookiejar
+filename = "cookie.txt"
+# 创建cookieJar实例
+cookie = cookiejar.MozillaCookieJar(filename)
+# 生成cookie的管理器
+cookie_handler = request.HTTPCookieProcessor(cookie)
+# 创建http请求管理器
+http_handler = request.HTTPHandler()
+# 生成https管理器
+https_handler = request.HTTPHandler()
+# 创建 请求管理器
+opener = request.build_opener(http_handler, https_handler, cookie_handler)
+
+def login():
+
+    '''
+    初次需要登陆
+    需要输入用户名和密码，以获取cookie凭证
+    :return:
+    '''
+
+    url = "http://www.renren.com/PLogin.do"
+    data = {
+        "email": "13119144223",
+        "password": "123456"
+    }
+    # 把数据编码
+    data = parse.urlencode(data)
+    # 创建一个请求对象
+    rep = request.Request(url, data=data.encode())
+    # 使用opener发起请求
+    html = opener.open(rep)
+
+    # 保存cookie文件
+    # ignore_discard 表示cookie即使将被丢弃也要保存
+    # ignore_exprise 表示cookie即使已经过期也要保存下来
+    cookie.save(ignore_discard=True, ignore_expires=True)
+
+if __name__ == '__main__':
+    login()
