@@ -1,0 +1,38 @@
+例1
+from urllib import request
+'''
+    用urllib.request请求一个网页，并返回并打印内容
+'''
+if __name__ == '__main__':
+    url = "http://baijiahao.baidu.com"
+    # 打开相应的网页并返回
+    rsp = request.urlopen(url)
+    html = rsp.read()
+    print(type(html))
+
+    html = html.decode("utf-8")
+
+    print(html)
+    
+    
+    
+    例2
+import chardet
+from urllib import request
+'''
+用request下载页面
+自动检测页面编码
+'''
+
+if __name__ == '__main__':
+    url = "https://news.sina.com.cn/2019-04-05/doc-ihvhiqax0125822.shtml"
+    rsp = request.urlopen(url)
+    html = rsp.read()
+
+    # 利用chardet自动检测
+    cs = chardet.detect(html)
+    print(type(cs))
+    print(cs)
+    html = html.decode(cs.get("encoding", 'utf-8'))
+    print(html)
+   
