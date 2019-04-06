@@ -1,0 +1,78 @@
+ # 格式化文件储存
+ - xml, json
+ - 为解决不同文件之间的信息交流
+ - xml文件
+
+# XML: 可扩展换的标记语言
+   - 标记语言： <String>
+   - 例如：
+   
+            <Teacher>
+               自定义标记语言
+                相关内容
+            <Teacher>
+   - w3c组织制定的标准
+   - xml描述的是数据，及数据的结构和语义
+   - html强调的是如何显示web页面的数据
+   
+ ## XML语言的构成
+   - 处理指令
+        - 只有一行,只能是在首行
+        - xml相关的处理和指令
+            - version属性是必需的
+            - encoding属性用来表示xml最后输出的格式
+    - 根元素（一个文件只有一个根元素）
+    - 子元素
+    - 属性
+    - 内容
+    - 注释
+        - 不能签套在标签中
+        - 注释开始和结尾处用双短横线
+        - 三短横线只能在注释首
+        - 保留字符的使用：
+            
+                 - &: &amp
+                 - <: &lt
+                 - >: &gt
+                 - ': &apos
+                 - ": &quot
+   - 命名空间 xmlns
+   - xml 访问
+        - 读取 SAX, DOM
+            -  SAX(Simple API for XMl):
+            - 基于事件驱动
+            - 分为解析器和数据处理两部分
+    - DOM  
+        - 是w3c规定的XML的程序接口   
+        - xml文件在缓存中以树形结构保存，读取
+        - 用途：
+             - 定位浏览xml文件的任何一个节点
+             - 增加删除相应的内容
+        - minidom:
+            - minidom.parse(filename):加载读取xml文件
+            - doc.documentElement:获取文档对象，一个xml只有一个文档对象
+            - node.getAttribute(attr_name):获取xml文件的属性值
+            - node.getElementByTagName(tage_name):得到一个节点对象组合
+            - node.childNodes:得到所有孩子节点
+            - node.childNodes[index].nodeValue:获得单个节点值
+            - node.firstNode:得到第一个节点,等价于node.childNodes[0]
+            - node.attributes[tage_name]:
+         
+        - etree:
+            - root.getiterator:得到相应的可迭代的node集合
+            - root.iter
+            - find(node_name):查找指定的node_name的节点，返回一个node
+            - root.findall(node_name):返回多个node_name节点   
+            - node.tag: node对应的tagname
+            - node.text: node的文本值
+            - node.attrib: node的属性的字典类型的内容
+            
+   # xml文件的写入
+   - 更改
+        - ele.set:修改属性
+        - ele.append:添加子元素 
+        - ele.remove: 移除元素 
+   - 生成创建
+        - SubElement
+                 
+                                                                                                                                                                                               
