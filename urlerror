@@ -20,6 +20,10 @@ if __name__ == '__main__':
     except Exception as e:
         print(e)
         
+ # 运行结果
+        URlError: <urlopen error [Errno 11001] getaddrinfo failed>
+        UrlError:[Errno 11001] getaddrinfo failed
+
         
         
 # HTTPError的使用
@@ -46,11 +50,13 @@ if __name__ == '__main__':
 
     except Exception as e:
         print(e)
+       
+  # 运行结果
+           HTTPError: HTTP Error 404: Not Found
         
-        
-        # 区分：
-            HTTPError 是对应的HTTP请求访问得到的返回码错误， http code 在400以上，就会返回HTTPError
-            URLError 是一般网络出现问题包括url问题
+  # 区分：
+           HTTPError 是对应的HTTP请求访问得到的返回码错误， http code 在400以上，就会返回HTTPError
+           URLError 是一般网络出现问题包括url问题
             
-          关系：
-              OSError -- URLError -- HTTPError
+   # 关系：
+           OSError -- URLError -- HTTPError
