@@ -1,0 +1,68 @@
+# 简单爬虫架构
+   - 主要的python爬虫架构有：
+        - Scrapy架构
+        - Pyspider架构
+        - Cola架构
+
+ ####   实现HTTP请求常见的库为urllib 和 requests
+   
+   - 1.URL管理器：负责将要爬取的url
+   - 2.网页下载器： 负责将url对应的网页下载到本地
+   - 3.网页解析器： 从网页中提取想要的信息
+        - 常见的解析工具
+            - 正则表达式
+            - Lxml库
+                - 使用Xpath语法
+            - Beautiful Soup
+   - 4.输出管理器： 把解析的内容输出到文件或数据库中
+   
+# urllib库
+ 
+ - 包含四个模块：
+    - urllib.request : 读取，打开
+        - request. urlopen(url)
+        - rsp.read().decode()
+        
+    - urllib.error :  常见的错误模块
+        - error.URLError 是一般网络出现问题包括url问题
+        - error.HTTPError 是对应的HTTP请求访问得到的返回码错误， http code 在400以上，就会返回HTTPError
+    - urllib.parse
+    
+            - URl解析
+                 - urlparse: 拆分URL
+                     分为6个部分：scheme机制，netloc网络位置， path路径，
+                      params路径段参数， query查询， fragment片段
+                  
+                 - urlunparse: 拼接URL
+                  
+                 - urljoin:拼接两个URL   
+                        
+    - urllib.robotparse 
+    
+ - handler是Handler的实例
+    - 用来处理复杂请求
+    
+        - 生成cookie的管理器
+             - cookie_handler = request.HTTPCookieProcessor(cookie)
+        - 创建http请求管理器
+            - http_handler = request.HTTPHandler()
+        - 生成https管理器
+            - https_handler = request.HTTPSHandler()
+            
+ - 创建handler后，使用opener打开后相应的业务有handler处理
+ - cookie可以作为一个变量，被打印
+    - cookie属性：
+        - name: 名称
+        - value: 值
+        - domain: 可以访问此cookie的域名
+        - path： 可以连接此cookie的页面路径
+        - expirse: 过期时间
+        - size; 大小
+        - http字段
+    
+  - SSL
+       - ssl证书是指遵守ssl安全阶层协议服务器数字证书
+    
+  - js加密
+        - 加密函数或过程一定是在浏览器上完成x
+    
