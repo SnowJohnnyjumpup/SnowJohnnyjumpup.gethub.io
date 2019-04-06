@@ -1,0 +1,180 @@
+例1
+
+from urllib import request, parse
+from http import cookiejar
+# 创建cookieJar实例
+cookie = cookiejar.CookieJar()
+# 生成cookie的管理器
+cookie_handler = request.HTTPCookieProcessor(cookie)
+# 创建http请求管理器
+http_handler = request.HTTPHandler()
+# 生成https管理器
+https_handler = request.HTTPHandler()
+# 创建 请求管理器
+opener = request.build_opener(http_handler, https_handler, cookie_handler)
+
+def login():
+
+    '''
+    初次需要登陆
+    需要输入用户名和密码，以获取cookie凭证
+    :return:
+    '''
+
+    url = "http://www.renren.com/PLogin.do"
+    data = {
+        "email": "13119144223",
+        "password": "123456"
+    }
+    # 把数据编码
+    data = parse.urlencode(data)
+    # 创建一个请求对象
+    rep = request.Request(url, data=data.encode())
+    # 使用opener发起请求
+    rsp = opener.open(rep)
+
+
+if __name__ == '__main__':
+    login()
+    '''
+    执行完cookie之后，会得到授权的cookie
+    '''
+    print(cookie)
+    for item in cookie:
+        print(type(item))
+        print(item)
+        for i in dir(item):
+            print(i)
+            
+            
+例2
+
+from urllib import request
+
+if __name__ == '__main__':
+    url = "https://y.qq.com/portal/profile"
+
+    rsp = request.urlopen(url)
+
+    html = rsp.read().decode()
+
+    with open("rsp.html", "w") as f:
+        f.write(html)
+        
+        
+例3
+
+from urllib import request
+
+if __name__ == '__main__':
+    url = "https://y.qq.com/portal/profile"
+    headers = {
+        "Cookie": 'QT9pHXICD1lUFwAPWU9ZRQptdXEiLlcLEwtUC00BWlJqe3Z7dHtzdR5VUi1TWldcWndiYAxQRBRsZBh3XF5aOkRRX0NHX1laZWh5dHI%3d '
+    }
+    rep = request.Request(url, headers=headers)
+
+    rsp = request.urlopen(rep)
+
+    html = rsp.read().decode()
+
+    with open("rsp.html", "w") as f:
+        f.write(html)
+        
+        
+ 例4
+ 
+ from urllib import request, parse
+from http import cookiejar
+# 创建cookieJar实例
+cookie = cookiejar.CookieJar()
+# 生成cookie的管理器
+cookie_handler = request.HTTPCookieProcessor(cookie)
+# 创建http请求管理器
+http_handler = request.HTTPHandler()
+# 生成https管理器
+https_handler = request.HTTPHandler()
+# 创建 请求管理器
+opener = request.build_opener(http_handler, https_handler, cookie_handler)
+
+def login():
+
+    '''
+    初次需要登陆
+    需要输入用户名和密码，以获取cookie凭证
+    :return:
+    '''
+
+    url = "http://www.renren.com/PLogin.do"
+    data = {
+        "email": "13119144223",
+        "password": "123456"
+    }
+    # 把数据编码
+    data = parse.urlencode(data)
+    # 创建一个请求对象
+    rep = request.Request(url, data=data.encode())
+    # 使用opener发起请求
+    rsp = opener.open(rep)
+
+def getHomePage():
+    url = "http://www.renren.com/965187997/profile"
+    # 若已经执行了login，则会自动匹配到cookie
+    rsp = opener.open(url)
+    html = rsp.read().decode()
+    with open("rsp.html", "w") as f:
+        f.write(html)
+
+if __name__ == '__main__':
+    login()
+    getHomePage()
+    
+    
+例5（未写完）
+
+from urllib import request
+from http import cookiejar
+
+# 获取cookie,并将保存在变量中的cookie打印出来
+def Cookie():
+    # 声明一个CookieJar对象来保存cookie
+    cookie = cookiejar.CookieJar()
+    # 创建cookie处理器
+    handler = request.HTTPCookieProcessor(cookie)
+    # 构建opener
+    opener = request.build_opener(handler)
+    # 创建请求
+    res = opener.open('http://www.baidu.com')
+    for item in cookie:
+        print('name:' + item.name + '-value:' + item.value)
+
+# 将cookie保存在文件中
+def saveCookie():
+    # 设置保存cookie的文件
+    filename = 'cookie.txt'
+    # 声明一个MozillaCookieJar对象来保存cookie，之后写入文件
+    cookie = cookiejar.MozillaCookieJar(filename)
+    # 创建cookie处理器
+    handler = request.HTTPCookieProcessor(cookie)
+    # 构建opener
+    opener = request.build_opener(handler)
+    # 创建请求
+    res = opener.open('http://www.baidu.com')
+    # 保存cookie到文件
+    # ignore_discard的意思是即使cookies将被丢弃也将它保存下来
+    # ignore_expires的意思是如果在该文件中cookies已经存在，则覆盖原文件写入
+    cookie.save(ignore_discard=True,ignore_expires=True)
+
+# 从文件中获取cookie并且访问(我们通过这个方法就可以打开保存在本地的cookie来模拟登录)
+def getCookie():
+    # 创建一个MozillaCookieJar对象
+    cookie = cookiejar.MozillaCookieJar()
+    # 从文件中的读取cookie内容到变量
+    cookie.load('cookie.txt',ignore_discard=True,ignore_expires=True)
+    # 打印cookie内容,证明获取cookie成功
+    for item in cookie:
+        print('name:' + item.name + '-value:' + item.value)
+    # 利用获取到的cookie创建一个opener
+    handler = request.HTTPCookieProcessor(cookie)
+    opener = request.build_opener(handler)
+    res = opener.open('http://www.baidu.com')
+    print(res.read().decode())
