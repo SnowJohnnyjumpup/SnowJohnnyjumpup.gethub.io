@@ -1,0 +1,389 @@
+# 继承
+   - 继承就是一个类可以获得另一个类中的成员属性和成员方法
+   
+   - 作用：减少代码，增加代码复用，同时可以设置类与类之间的直接关系
+   
+   - 继承与被继承的概念：
+   
+       - 被继承的类叫父类，也叫基类，超类
+       - 用于继承的类叫子类，或派生类
+       - 继承与被继承之间存在一个is-a的关系
+       
+   - 继承的特征：
+       - 所有的类都继承自object类
+       - 子类一旦继承父类，则可以使用父类中除私有成员外的所有内容
+       - -子类继承父类是通过引用关系访问调用
+       - 子类可以定义独有的成员属性和方法
+       - 子类中定义的成员如果和父类成员相同，则优先使用子类成员
+       - 子类想扩充父类的方法，可以在定义新方法的同时访问父类成员进行代码复用，
+       -  可以使用[父类名.父类成员]，或supper().父类成员的格式来调用
+       
+   - 继承变量函数的查找顺序
+        - 优先查找自己的变量
+        - 没有则查找父类
+        - 构造函数若本类没有，则自动查找调用父类构造函数
+        - 若本类有定义，则不继续向上查找 
+        
+   - 构造函数
+        - 是一类特殊的函数，在类进行实例化之前进行调用
+        - 若定义了构造函数，则实例化时使用构造函数，不查找父类构造函数
+        - 若没有定义，则自动查找父类构造函数
+        - 若子类没有定义，父类的构造函数带有参数，则构造对象时的参数应按照父类参数构造
+        
+   - super
+        - super是一个类
+        - super的作用是获取（MRO (MethodResolustionOrder)）列表中的一个类
+        - 可以通过super调用到父类
+        - super使用两个方法，参见在构造函数中调用父类的构造函数
+        
+   - 单继承和多继承
+       - 单继承：每个类只能继承一个类
+       - 多继承：每个类能继承多个类
+        
+       - 优缺点：
+            - 单继承：
+                - 继承有序逻辑清晰，功能不能不限延展
+                
+            - 多继承：
+                - 优点：类的功能得到扩展
+                - 缺点:继承关系混乱
+   - 菱形继承或钻石型继承问题
+      - 多个子类继承一个类，同时又被一个类继承
+      
+      - 多继承MRO：
+      
+           -  MRO就是多继承中，用于保存继承顺序的一个列表
+           - python采用C3算法对多继承进行计算
+           - MRO列表的计算原则：
+                - 子类永远在父类前面
+                - 若多个父类，则根据括号里的顺序存放
+                - 若多个父类继承了同一个父类，则子类中只会选取继承语法括号的第一个父类的父类
+   - 构造函数：
+       - 在对象实例化的时候，系统自动调用一个函数，通常此函数用来对实例对象调用
+        
+#多态
+   - 多态是同一个对象在不同情况下有不同状态出现
+   - 多态是一种设计思想
+   - 多态性：一种调用方式，不同的执行效果
+   - Mixin设计形式
+        - 主要采用多继承对子类进行扩展 
+        - Mixin不能依赖于子类的实现，只能一个Mixin对应个功能
+        - 子类即使没有继承Mixin类，也能工作，只是缺少某个功能
+#类相关函数
+   - issubclass:检测一个类是否是另一个类的子类
+   - isintance:检测一个对象是否是另一个类的实例
+   - hasattr:检测一个对象是否由成员XXX
+   - setattr: set attribute
+   - delattr: delete attribute
+   - help:帮助
+   - dir:获取对象的成员列表
+#类的成员描述符（属性）
+   - set:修改或添加属性
+   - get: 获取属性的操作
+   - delete：删除属性的操作
+   - 使用类的成员描述符
+        - 使用类实现描述器
+        - 使用属性修饰符
+        - 使用property函数
+            - property（fget, fset, sdel, doc）
+   - 类的内置函数：
+   
+          __dict__：以字典的形式显示类的成员组成
+          __doc__:获取类的文档信息
+          __name__:获取类的名称，若在模块中使用，获取模块的名称
+          __bases__:获取某个类的所有父类，以元组形式显示
+         
+   - 类的常用魔术方法;
+   
+      - 魔术方法不需要人为调用，基本是在特定时刻触发
+      - 统一的特征： 方法名前后各2个下滑线包裹
+      
+            '__init__':构造函数
+            '__new__':对象实例化方法，此函数特殊，一般不使用
+            '__call__':对象当函数使用的时候触发
+            '__str__':但对象被当作字符串时调用
+            '__repr__':返回字符串
+      - 相关描述符
+      
+                '__set__':
+                '__get__'
+                '__delete__'
+      - 属性操作符
+      
+               __getattr__:访问一个不纯在的属性时触发
+               __setattr__:对成员进行设置时触发，容易触发死循环
+               -参数：
+                    self用于获取当前的对象
+                    被设置的属性名称，以字符串形式出现
+                    需要对属性名称设置的值
+                '__gt__':进行大于判断的时候触发的函数
+                    -参数：
+                        - self
+                        - 第二个参数是第二个对象
+                        - 返回值是任意值，推荐使用布尔值
+   - 类和对象的三种方法
+        - 实例方法：
+            需要实例化对象才能使用
+        - 静态方法：
+            不需要实例化，通过类直接访问
+        - 类方法：
+            不需要实例化
+            
+#抽象类
+   - 抽象方法：没有具体实现内容的方法叫抽象方法
+   - 规范子类的接口和行为
+   - 抽象类需要调用abc模块
+        - import abc
+   - 抽象类的使用:
+        - 抽象类可以包含抽象方法，也可以包括具体方法
+        - 抽象类可以有方法也可以有属性
+        - 抽象类不允许实例化
+        - 必须继承才可以使用且继承的子类必须实现继承的所有抽象方法，若子类没有实现所继承的抽象方法，则子类也不能被实例化
+        - 抽象类的作用是设定类的标准，以便开发时具有统一的规范
+#自定义类
+   - 由一个类定义和各种方法的自由组合
+   - 可定义类和函数，然后通过类直接赋值
+   - 可借助MethodType实现
+   - 也可以借助type实现
+    
+#1.模块
+ - 一个模块就是一个包含python代码的文件，后缀名为.py就可以。    
+ -定义模块：
+    - 函数（单一功能）
+    - 类
+    - 测试代码
+ - 使用模块
+     - 模块直接导入
+     - 语法
+     
+           import module_name
+           module_name.function_name
+           module_name.class_name
+         - import 模块 as 别名
+            - 见p03
+         - from module_name import func_name, class_name
+            - 有选择地导入模块内容
+            - 见p04
+         - from module_name import *
+         
+            - 导入模块所有内容
+            - 见p05
+          
+ - 借助于importlib包可以实现导入以数字开头的模块  
+    - 实例见p01, p02, 01, 02
+ 
+ - if __name__ == '__main__'的使用
+    - 可以有效的避免模块代码被动执行全代码，应作为程序的入口
+    
+# 模块的搜索路径和储存
+            import sys 
+            sys.path 属性可获取所有的路径
+            见p06
+  - 添加搜索路径
+      - sys.path.append(dir)
+      
+ - 包是一种组织管理代码的方式，存放的是模块
+ - 包的自定义结构
+ 
+            /...包
+            /... __init__ .py包的标志性函数
+            /... 模块1
+            /... 模块2
+            /.../...子包
+            /.../... __init__ .py包标志性函数
+            /.../... 子模块1
+            /.../... 子模块2
+            
+  - 包的导入操作
+    - import package_name
+        - 直接导入一个包， 可以使用__init__.py中的文件
+        - 使用方式
+            - package_name.func_name
+            - package_name.class_name.func_name 
+             
+     - import package_name as p
+        - 此方法是对__init__.py内容默认导入
+     - import package.module 
+        - 导入包中某一个具体模块
+         - 使用方法
+            - package.module.func_name
+            - package.module.class.fun()
+            - package.module.class.var
+            - import package.module as pm
+            - from package import module1, module2, ...
+                - 此方法不执行__init__的内容
+                - 如  from pak01 import p01
+                       p01.sayHello
+            - from package import *
+                - 使用方法
+                
+                    func_name()
+                    
+                    class_name.func_name()
+                    
+                    class_name.var
+            - from package.module import *
+                - 导入包指定模块的所有内容
+                - 使用方法
+                    - func_name()
+                    - class_name.func_name()
+                        
+    -  __all__的用法
+        - 在使用from package import * 的时候， * 可导入的内容
+        
+# 异常       
+   - 异常是一个类，可以处理和使用     
+     
+                    BaseException  # 所有异常的基类
+                
+                     +-- SystemExit  # 解释器请求退出
+                
+                     +-- KeyboardInterrupt  # 用户中断执行(通常是输入Ctrl+^C)
+                
+                     +-- GeneratorExit  # 生成器(generator)发生异常来通知退出
+                
+             - Exception  # 常规异常的基类
+                
+                      +-- StopIteration  # 迭代器没有更多的值
+                
+                      +-- StopAsyncIteration  # 必须通过异步迭代器对象的__anext__()方法引发以停止迭代
+                
+                      +-- ArithmeticError  # 各种算术错误引发的内置异常的基类
+                
+                      |    +-- FloatingPointError  # 浮点计算错误
+                
+                      |    +-- OverflowError  # 数值运算结果太大无法表示
+                
+                      |    +-- ZeroDivisionError  # 除(或取模)零 (所有数据类型)
+                
+                      +-- AssertionError  # 当assert语句失败时引发
+                
+                      +-- AttributeError  # 属性引用或赋值失败
+                
+                      +-- BufferError  # 无法执行与缓冲区相关的操作时引发
+                
+                      +-- EOFError  # 当input()函数在没有读取任何数据的情况下达到文件结束条件(EOF)时引发
+                
+                      +-- ImportError  # 导入模块/对象失败
+                
+                      |    +-- ModuleNotFoundError  # 无法找到模块或在在sys.modules中找到None
+                
+                      +-- LookupError  # 映射或序列上使用的键或索引无效时引发的异常的基类
+                
+                      |    +-- IndexError  # 序列中没有此索引(index)
+                
+                      |    +-- KeyError  # 映射中没有这个键
+                
+                      +-- MemoryError  # 内存溢出错误(对于Python 解释器不是致命的)
+                
+                      +-- NameError  # 未声明/初始化对象 (没有属性)
+                
+                      |    +-- UnboundLocalError  # 访问未初始化的本地变量
+                
+                      +-- OSError  # 操作系统错误，EnvironmentError，IOError，WindowsError，socket.error，select.error和mmap.error已合并到OSError中，构造函数可能返回子类
+                
+                      |    +-- BlockingIOError  # 操作将阻塞对象(e.g. socket)设置为非阻塞操作
+                
+                      |    +-- ChildProcessError  # 在子进程上的操作失败
+                
+                      |    +-- ConnectionError  # 与连接相关的异常的基类
+                
+                      |    |    +-- BrokenPipeError  # 另一端关闭时尝试写入管道或试图在已关闭写入的套接字上写入
+                
+                      |    |    +-- ConnectionAbortedError  # 连接尝试被对等方中止
+                
+                      |    |    +-- ConnectionRefusedError  # 连接尝试被对等方拒绝
+                
+                      |    |    +-- ConnectionResetError    # 连接由对等方重置
+                
+                      |    +-- FileExistsError  # 创建已存在的文件或目录
+                
+                      |    +-- FileNotFoundError  # 请求不存在的文件或目录
+                
+                      |    +-- InterruptedError  # 系统调用被输入信号中断
+                
+                      |    +-- IsADirectoryError  # 在目录上请求文件操作(例如 os.remove())
+                
+                      |    +-- NotADirectoryError  # 在不是目录的事物上请求目录操作(例如 os.listdir())
+                
+                      |    +-- PermissionError  # 尝试在没有足够访问权限的情况下运行操作
+                
+                      |    +-- ProcessLookupError  # 给定进程不存在
+                
+                      |    +-- TimeoutError  # 系统函数在系统级别超时
+                
+                      +-- ReferenceError  # weakref.proxy()函数创建的弱引用试图访问已经垃圾回收了的对象
+                
+                      +-- RuntimeError  # 在检测到不属于任何其他类别的错误时触发
+                
+                      |    +-- NotImplementedError  # 在用户定义的基类中，抽象方法要求派生类重写该方法或者正在开发的类指示仍然需要添加实际实现
+                
+                      |    +-- RecursionError  # 解释器检测到超出最大递归深度
+                
+                      +-- SyntaxError  # Python 语法错误
+                
+                      |    +-- IndentationError  # 缩进错误
+                
+                      |         +-- TabError  # Tab和空格混用
+                
+                      +-- SystemError  # 解释器发现内部错误
+                
+                      +-- TypeError  # 操作或函数应用于不适当类型的对象
+                
+                      +-- ValueError  # 操作或函数接收到具有正确类型但值不合适的参数
+                
+                      |    +-- UnicodeError  # 发生与Unicode相关的编码或解码错误
+                
+                      |         +-- UnicodeDecodeError  # Unicode解码错误
+                
+                      |         +-- UnicodeEncodeError  # Unicode编码错误
+                
+                      |         +-- UnicodeTranslateError  # Unicode转码错误
+                
+                      +-- Warning  # 警告的基类
+                
+                           +-- DeprecationWarning  # 有关已弃用功能的警告的基类
+                
+                           +-- PendingDeprecationWarning  # 有关不推荐使用功能的警告的基类
+                
+                           +-- RuntimeWarning  # 有关可疑的运行时行为的警告的基类
+                
+                           +-- SyntaxWarning  # 关于可疑语法警告的基类
+                
+                           +-- UserWarning  # 用户代码生成警告的基类
+                
+                           +-- FutureWarning  # 有关已弃用功能的警告的基类
+                
+                           +-- ImportWarning  # 关于模块导入时可能出错的警告的基类
+                
+                           +-- UnicodeWarning  # 与Unicode相关的警告的基类
+                
+                           +-- BytesWarning  # 与bytes和bytearray相关的警告的基类
+                
+                           +-- ResourceWarning  # 与资源使用相关的警告的基类。被默认警告过滤器忽略。
+
+   - 异常处理 
+        - 异常处理模块全部语法为：
+        
+                try:
+                except 异常类型1:
+                    解决方案1：
+                except 异常处理2:
+                    解决方案2：
+                ...
+                else:
+                    若没有异常，则将会出现的代码
+                finally:
+                    无论什么异常都要运行的代码
+                
+                
+
+       
+ 
+    
+
+    
+ 
+    
+    
+                   
