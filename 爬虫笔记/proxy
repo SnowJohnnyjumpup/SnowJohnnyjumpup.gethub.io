@@ -1,0 +1,49 @@
+例1
+
+from urllib import request
+'''
+用request下载页面
+自动检测页面编码
+'''
+
+if __name__ == '__main__':
+    url = "https://news.sina.com.cn/2019-04-05/doc-ihvhiqax0125822.shtml"
+    rsp = request.urlopen(url)
+    print(type(rsp))
+    print(rsp)
+    print("URL: {0}".format(rsp.geturl()))
+    print("Info: {0}".format(rsp.info()))
+    print("Code: {0}".format(rsp.getcode()))
+    html = rsp.read()
+
+    html = html.decode()
+    
+    
+例2
+
+from urllib import request, parse
+'''
+对url进行参数编码编程时
+需要使用parse模块
+'''
+
+if __name__ == '__main__':
+    url = 'http://www.baidu.com/s?'
+    wd = input("input your keyword")
+    # 想用data，需要用字典结构
+    qs = {
+        "wd" : wd
+    }
+    # 转换url编码
+    qs = parse.urlencode(qs)
+    print(qs)
+    fullurl = url + qs
+    print(fullurl)
+
+    rsp = request.urlopen(fullurl)
+    html = rsp.read()
+    # 解码
+    html = html.decode()
+    print(html)
+
+
