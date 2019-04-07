@@ -1,0 +1,24 @@
+
+'''
+爬取豆瓣电影
+请求 URL: https://movie.douban.com/j/chart/top_list?type=24&interval_id=100%3A90&action=&start=20&limit=20
+'''
+from urllib import request
+import json
+if __name__ == '__main__':
+
+    url = "https://movie.douban.com/j/chart/top_list?type=24&interval_id=100%3A90&action=&start=20&limit=20"
+
+    rsp = request.urlopen(url)
+
+    data = rsp.read().decode("utf-8")
+    data = json.loads(data)
+    print(data)
+
+
+# 运行结果
+[{'rating': ['9.1', '45'],'rank': 21,'cover_url': 'https://img3.doubanio.com/view/subject/l/public/s3622650.jpg', 'is_playable': False, 'id': '3075092','types': ['喜剧', '动画'],'regions': ['美国'], 'title': '欢乐树的朋友们：滑雪巡逻救生队','url': 'https://movie.douban.com/subject/3075092/', 'release_date': '2006-04-12', 'actor_count': 3, 'vote_count': 1468, 'score': '9.1', 'actors': ['沃伦·格拉夫', '比利·维斯特', '凯恩·纳瓦罗'], 'is_watched': False},
+{'rating': ['9.0', '45'], 'rank': 22, 'cover_url': 'https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2519070834.jpg', 'is_playable': True, 'id': '26752088','types': ['剧情', '喜剧'], 'regions': ['中国大陆'], 'title': '我不是药神', 'url': 'https://movie.douban.com/subject/26752088/', 'release_date': '2018-07-05', 'actor_count': 25, 'vote_count': 1071283, 'score': '9.0', 'actors': ['徐峥', '王传君', '周一围', '谭卓', '章宇', '杨新鸣', '王佳佳', '王砚辉', '贾晨飞', '龚蓓苾', '宁浩', '李乃文', '岳小军', '苇青', '富冠铭', '巴拉特·巴蒂', '喜利图', '张海艳', '朱耕佑', '张子贤', '邓飞', '任洛敏', '杜子蓝', 'Zilan Du', '刘兴雷'], 'is_watched': False}, 
+{'rating': ['9.0', '45'], 'rank': 23, 'cover_url': 'https://img3.doubanio.com/view/photo/s_ratio_poster/public/p663036666.jpg', 'is_playable': True, 'id': '3319755','types': ['剧情', '喜剧', '爱情'], 'regions': ['美国'], 'title': '怦然心动', 'url': 'https://movie.douban.com/subject/3319755/', 'release_date': '2010-07-26', 'actor_count': 32, 'vote_count': 879038, 'score': '9.0', 'actors': ['玛德琳·卡罗尔', '卡兰·麦克奥利菲', '瑞贝卡·德·莫妮', '安东尼·爱德华兹', '约翰·马奥尼', '佩内洛普·安·米勒', '艾丹·奎因', '凯文·韦斯曼', '摩根·莉莉', '瑞安·克茨纳', '吉莉安·普法夫', '迈克尔·博萨', '博·勒纳', '杰奎琳·埃沃拉', '泰勒·格鲁秀斯', '艾莉·布莱恩特', '阿什莉·泰勒', '伊瑟尔·布罗萨德', '科迪·霍恩', '迈克尔·博尔顿', '肖恩·哈珀', '斯戴芬妮·斯考特', '帕特丽夏·伦茨', '马修·戈尔德', '阿罗拉·凯瑟琳·史密斯', '凯莉·唐纳利', '索菲亚·撒高', '米歇尔·梅斯默', 'Scott Joel Gizicki', 'Rod Myers', 'Kara Pacitto', 'Katelyn Pacitto'], 'is_watched': False}, 
+{'rating': ['9.0', '45'], 'rank': 24, 'cover_url': 'https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2503997609.jpg', 'is_playable': True, 'id': '20495023','types': ['喜剧', '动画', '奇幻', '音乐'], 'regions': ['美国'], 'title': '寻梦环游记', 'url': 'https://movie.douban.com/subject/20495023/', 'release_date': '2017-11-24', 'actor_count': 24, 'vote_count': 723644, 'score': '9.0', 'actors': ['安东尼·冈萨雷斯', '盖尔·加西亚·贝纳尔', '本杰明·布拉特', '阿兰纳·乌巴奇', '芮妮·维克托', '杰米·卡米尔', '阿方索·阿雷奥', '赫伯特·西古恩萨', '加布里埃尔·伊格莱西亚斯', '隆巴多·博伊尔', '安娜·奥菲丽亚·莫吉亚', '娜塔丽·科尔多瓦', '赛琳娜·露娜', '爱德华·詹姆斯·奥莫斯', '索菲亚·伊斯皮诺萨', '卡拉·梅迪纳', '黛娅娜·欧特里', '路易斯·瓦尔德斯', '布兰卡·阿拉切利', '萨尔瓦多·雷耶斯', '切奇·马林', '奥克塔维·索利斯', '约翰·拉岑贝格', '以利亚·罗德里格斯'], 'is_watched': False}, 
+''''']
