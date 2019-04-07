@@ -47,6 +47,7 @@ if __name__ == '__main__':
 
     headers = {
         # 使用Post，至少包含Content_Length
+        # 强制转换为str格式
         'Content_Length': str(len(data))
     }
 
@@ -59,3 +60,67 @@ if __name__ == '__main__':
 <class 'bytes'>
 {"errno":1,"data":[]}
 {'errno': 1, 'data': []}
+
+
+# http问题
+
+import requests
+
+if __name__ == '__main__':
+
+    url = "http://fanyi.baidu.com/sug"
+
+    # 存放模拟Form数据为dict格式
+    data = {
+        'kw': 'girl'
+    }
+    # 需要一个请求头，至少包含传入数据长度
+    # request请求传入的请求头是dict格式
+
+    headers = {
+        # 使用Post，至少包含Content_Length
+        'Content_Length': str(len(data))
+    }
+
+    rsp = requests.post(url, data=data, headers=headers)
+    print(rsp.text)
+    print(rsp.json())
+
+# 运行结果
+
+Connected to pydev debugger (build 191.6183.50)
+{"errno":1,"data":[]}
+{'errno': 1, 'data': []}
+
+#https格式—终极版
+
+import requests
+
+if __name__ == '__main__':
+
+    url = "https://fanyi.baidu.com/sug"
+
+    # 存放模拟Form数据为dict格式
+    data = {
+        'kw': 'girl'
+    }
+    # 需要一个请求头，至少包含传入数据长度
+    # request请求传入的请求头是dict格式
+
+    headers = {
+        # 使用Post，至少包含Content_Length
+        'Content_Length': str(len(data))
+    }
+
+    rsp = requests.post(url, data=data, headers=headers)
+    print(rsp.text)
+    print(rsp.json())
+
+
+# 运行结果
+
+Connected to pydev debugger (build 191.6183.50)
+{"errno":0,"data":[{"k":"girl","v":"n. \u5973\u5b69; \u59d1\u5a18\uff0c\u672a\u5a5a\u5973\u5b50; \u5973\u804c\u5458\uff0c\u5973\u6f14\u5458; \uff08\u7537\u4eba\u7684\uff09\u5973\u670b\u53cb;"},{"k":"girls","v":"n. \u5973\u5b69; \u5973\u513f( girl\u7684\u540d\u8bcd\u590d\u6570 ); \u5973\u5de5; \uff08\u7537\u4eba\u7684\uff09\u5973\u670b\u53cb;"},{"k":"girlfriend","v":"n. \u5973\u670b\u53cb; \u5973\u6027\u670b\u53cb;"},{"k":"girl friend","v":"n. \u5973\u670b\u53cb\uff0c\uff08\u7537\u4eba\u7684\uff09\u60c5\u4eba; \u5bf9\u8c61;"},{"k":"Girls' Generation","v":" \u5c11\u5973\u65f6\u4ee3\uff08\u97e9\u56fdSM\u5a31\u4e50\u6709\u9650\u516c\u53f8\u4e8e2007\u5e74\u63a8\u51fa\u7684\u4e5d\u540d\u5973\u5b50\u5c11\u5973\u7ec4\u5408\uff09;"}]}
+{'errno': 0, 'data': [{'k': 'girl', 'v': 'n. 女孩; 姑娘，未婚女子; 女职员，女演员; （男人的）女朋友;'}, {'k': 'girls', 'v': 'n. 女孩; 女儿( girl的名词复数 ); 女工; （男人的）女朋友;'}, {'k': 'girlfriend', 'v': 'n. 女朋友; 女性朋友;'}, {'k': 'girl friend', 'v': 'n. 女朋友，（男人的）情人; 对象;'}, {'k': "Girls' Generation", 'v': ' 少女时代（韩国SM娱乐有限公司于2007年推出的九名女子少女组合）;'}]}
+
+
