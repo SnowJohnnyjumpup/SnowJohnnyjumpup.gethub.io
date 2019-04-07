@@ -66,3 +66,37 @@
   - js加密
         - 加密函数或过程一定是在浏览器上完成x
     
+# requests库
+
+ - 安装：  conda install requests
+ - 资料： http://docs.python-requests.org/zh_CN/latest/
+ 
+ - get请求
+    - requests.get(url)
+    - requests.request("get" , url)
+    - 可以带有params和headers参数
+    
+ - post
+    - rsp = requests.post(url, data=data, headers=headers)
+    - data和 headers都是dict类型
+    
+ - proxy
+ 
+      -  proxies = { 
+            "http":"address of proxy"
+            "https": "address of proxy"
+            }  
+      - rsp = requests.request("get", "http: xxxxxx", proxies=proxies)   
+      - 代理可能会报错，被强行关闭
+      
+ - 用户验证
+    - 代理验证：
+        -   需要HTTP basic Auth
+        - 格式为： 用户名：密码@代理地址：端口地址
+       - 如 proxy = {"http": "china:12345@192.168.1.123.112:1234"} 
+        - rsp = requests.request("http://www.baidu.com", proxy=proxy)
+        
+    - Web客户端验证
+        - 需要添加Auth(用户名， 密码)
+            - auth = ("text1", "12345")# 授权信息tuple类型
+            - rsp = requests.get("http://www.baidu.com", auth=auth)
