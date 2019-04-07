@@ -89,11 +89,11 @@
       - rsp = requests.request("get", "http: xxxxxx", proxies=proxies)   
       - 代理可能会报错，被强行关闭
       
- - 用户验证
-    - 代理验证：
+ - 用户验证：
+    - 代理验证
         -   需要HTTP basic Auth
         - 格式为： 用户名：密码@代理地址：端口地址
-       - 如 proxy = {"http": "china:12345@192.168.1.123.112:1234"} 
+        - 如 proxy = {"http": "china:12345@192.168.1.123.112:1234"} 
         - rsp = requests.request("http://www.baidu.com", proxy=proxy)
         
     - Web客户端验证
