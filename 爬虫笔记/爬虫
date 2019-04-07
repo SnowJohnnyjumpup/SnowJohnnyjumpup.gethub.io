@@ -100,3 +100,30 @@
         - 需要添加Auth(用户名， 密码)
             - auth = ("text1", "12345")# 授权信息tuple类型
             - rsp = requests.get("http://www.baidu.com", auth=auth)
+
+- cookies
+    - requests可以自动处理cookies信息
+        
+        - rsp = requests.get("http://xxxxxxxxx")
+        - 可以根据对方传过来的cookie信息获取其属性
+        - 返回一个cookiejar实例
+        - cookiejar = rsp.cookies
+        - 可以将cookiejar 转化为字典格式
+            - cookiedict = requests.utils.dict_from_cookiejar(cookiejar)
+            
+ - session
+    - 模拟一次会话，从客户端浏览器连接服务器开始，到客户端浏览器断开
+    - 同一个session实例发出的，说有请求之间保持cookie
+        - 创建session对象可以保持cookie值
+        - ss = requets.session()
+        - headers = {"User-Agent": "xxxxxxxx"}
+        - data = {"name": "xxxxx"}
+        - 此时由session管理负责发出请求
+        - ss.post("http://www.baidu.com", data=data, headers=headers)
+        - rsp = ss.get("xxxxx")
+        
+ - https请求验证ssl证书
+    - 参数verify负责表示是否需要验证ssl证书，默认为True
+        - rsp = requests.get("https://www.baidu.com", verify=True)
+        - 若访问12306是设置verify=True，会出错
+  
