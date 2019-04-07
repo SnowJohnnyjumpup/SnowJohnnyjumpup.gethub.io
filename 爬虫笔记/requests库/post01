@@ -1,0 +1,61 @@
+post案例1
+
+from urllib import parse
+import requests
+
+if __name__ == '__main__':
+    baseurl = 'http://fanyi.baidu.com/sug'
+    # 存放模拟Form数据为dict格式
+    data = {
+        'kw': 'girl'
+    }
+    # 需要用parse对data编码
+    data = parse.urlencode(data).encode("utf-8")
+    print(type(data))
+
+    # 需要一个请求头，至少包含传入数据长度
+    # request请求传入的请求头是dict格式
+
+    headers = {
+        # 使用Post，至少包含Content_Length
+        'Content_Length':len(data)
+    }
+
+    rsp = requests.post(baseurl, data=data,headers=headers)
+    print(rsp.text)
+    print(rsp.json())
+# 运行结果有错
+requests.exceptions.InvalidHeader: Value for header {Content_Length: 7} must be of type str or bytes, not <class 'int'>
+
+
+# 改变版
+from urllib import parse
+import requests
+
+if __name__ == '__main__':
+    baseurl = 'http://fanyi.baidu.com/sug'
+    # 存放模拟Form数据为dict格式
+    data = {
+        'kw': 'girl'
+    }
+    # 需要用parse对data编码
+    data = parse.urlencode(data).encode("utf-8")
+    print(type(data))
+
+    # 需要一个请求头，至少包含传入数据长度
+    # request请求传入的请求头是dict格式
+
+    headers = {
+        # 使用Post，至少包含Content_Length
+        'Content_Length': str(len(data))
+    }
+
+    rsp = requests.post(baseurl, data=data,headers=headers)
+    print(rsp.text)
+    print(rsp.json())
+
+
+# 运行结果依旧有错
+<class 'bytes'>
+{"errno":1,"data":[]}
+{'errno': 1, 'data': []}
