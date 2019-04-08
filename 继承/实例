@@ -120,7 +120,7 @@ hi， welcome you!
 ma name is yueyue
 
 
-例p06
+例sys
 
 import sys
 print(type(sys.path))
