@@ -1,1 +1,131 @@
+# class Money:
+#     pass
+
+# one = Money()
+# one.age = 12
+# print(one.age)
+# Money.count = 1 # 直接给类添加属性
+# Money.age = 12
+# Money.num = 666
+# print(Money.count)
+# print(Money.__dict__)
+
+# 常用
+class Money:
+     age = 12
+     count = 1
+     num = 666
+
+# print(Money.age)
+# print(Money.count)
+# print(Money.num)
+# print(Money.__dict__)
+
+one = Money()
+# 访问一个对象，有现在自己身上去找，再去相应的__class__类去找
+print(one.__class__)
+
+
+print(one.age)
+print(one.count)
+print(one.num)
+print(one.__dict__)
+
+例01
+
+class Student():
+    def __init__(self, name="NoName", age=18):
+        self.name = name
+        self.age = age
+
+    def say(self):
+        print("ma name is {0}".format(self.name))
+
+def sayHello():
+    print("hi， welcome you!")
+
+print("我被运行了")
+
+
+
+例02
+
+import importlib
+
+tuuling = importlib.import_module("01")
+
+stu = tuuling.Student()
+stu.say()
+
+例P01
+
+class Student():
+    def __init__(self, name="NoName", age=18):
+        self.name = name
+        self.age = age
+
+    def say(self):
+        print("ma name is {0}".format(self.name))
+
+def sayHello():
+    print("hi， welcome you!")
+
+# 此判断语句应作为程序的入口
+if __name__ == '__main__':
+    print("我被运行了")
+
+例p02
+
+import p01
+
+stu = p01.Student("xiaoming", 19)
+stu.say()
+p01.sayHello()
+
+
+ma name is xiaoming
+hi， welcome you!
+
+例p03
+
+import p01 as p
+
+stu = p.Student("yueyue", 20)
+stu.say()
+p.sayHello()
+
+ma name is yueyue
+hi， welcome you!
+
+
+例p04
+
+from p01 import Student
+
+stu = Student("yy", 23)
+stu.say()
+
+ma name is yy
+
+例p05
+
+from p01 import *
+
+sayHello()
+
+stu = Student("yueyue", 23)
+stu.say()
+
+hi， welcome you!
+ma name is yueyue
+
+
+例p06
+
+import sys
+print(type(sys.path))
+print(sys.path)
+
+for p in sys.path:
+    print(p)
 
